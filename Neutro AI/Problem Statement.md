@@ -2,15 +2,15 @@
              
 ## Problem Statement
 
-*Overview*
+**Overview**
 
 In physics, redshift is a phenomenon where electromagnetic radiation (such as light) from an object undergoes an increase in wavelength. Whether or not the radiation is visible, "redshift" means an increase in wavelength, equivalent to a decrease in wave frequency and photon energy, in accordance with, respectively, the wave and quantum theories of light.Earth at velocities proportional to their distance. In other words, the further they are the faster they are moving away from Earth. The velocity of the galaxies has been determined by their redshift, a shift of the light they emit to the red end of the spectrum.
 
-*Content*
+**Content**
 
 Every observation of data is described by 17 feature columns and 1 class column which identifies it to be either a star, galaxy or quasar.
 
-*Feature Description*
+**Feature Description**
 
 The table results from a query which joins two tables (actuaclly views): "PhotoObj" which contains photometric data and "SpecObj" which contains spectral data.
 
