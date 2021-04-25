@@ -37,7 +37,7 @@ class DataFrame:
         self.__df = pd.merge(self.__df, newDf, on=on, how='left')
     
     def __split(self, dfCol, playerCol):
-        self.__df[playerCol] = train[playerCol].apply(lambda x: x.split(', '))
+        self.__df[playerCol] = self.__df[playerCol].apply(lambda x: x.split(', '))
         ind = dfCol.index(playerCol)
         arr = self.__df.values
         narr = []
