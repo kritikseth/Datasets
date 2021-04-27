@@ -167,7 +167,7 @@ def preprocess(DataFrame, data, colTransformer, drop_target=False):
     X['batting_team'] = X['batting_team'].replace(team_id)
     X['bowling_team'] = X['bowling_team'].replace(team_id)
 
-    X.iloc[:, [5, 6, 7, 8, 12, 13, 15, 17]] = colTransformer.transform(X)
+    #X.iloc[:, [5, 6, 7, 8, 12, 13, 15, 17]] = colTransformer.transform(X)
 
     return X
 
