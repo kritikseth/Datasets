@@ -91,12 +91,12 @@ def preprocess(DataFrame, data, colTransformer, drop_target=False):
     df = DataFrame
     df.value = data
 
-    df.add_cols(venue, prefix='venue_', on=['venue'])
-    df.add_cols(venue_innings_battingteam, prefix='venue_innings_battingteam_', on=['venue', 'innings', 'batting_team'])
-    df.add_cols(venue_innings_bowlingteam, prefix='venue_innings_bowlingteam_', on=['venue', 'innings', 'bowling_team'])
+    df.add_cols(venue, prefix='venue.', on=['venue'])
+    df.add_cols(venue_innings_battingteam, prefix='venue_innings_battingteam.', on=['venue', 'innings', 'batting_team'])
+    df.add_cols(venue_innings_bowlingteam, prefix='venue_innings_bowlingteam.', on=['venue', 'innings', 'bowling_team'])
 
-    df.split_add(venue_oppteam_batsmen, 'batsmen', 'venue_oppteam_batsmen_', on=['venue', 'bowling_team', 'batsmen'])
-    df.split_add(venue_oppteam_bowler, 'bowler', 'venue_oppteam_bowler_', on=['venue', 'batting_team', 'bowler'])
+    df.split_add(venue_oppteam_batsmen, 'batsmen', 'venue_oppteam_batsmen.', on=['venue', 'bowling_team', 'batsmen'])
+    df.split_add(venue_oppteam_bowler, 'bowler', 'venue_oppteam_bowler.', on=['venue', 'batting_team', 'bowler'])
 
     data = df.value
 
