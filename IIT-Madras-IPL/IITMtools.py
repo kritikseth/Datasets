@@ -66,14 +66,15 @@ class DataFrame:
         self.__df = pd.DataFrame(self.__df)
         self.__df.drop_duplicates(keep='first', inplace=True)
 
-venue_id = {'M.Chinnaswamy Stadium': 0, 'Punjab Cricket Association Stadium, Mohali': 1, 'Feroz Shah Kotla': 2, 'Wankhede Stadium, Mumbai': 3, 'Eden Gardens': 4, 'Sawai Mansingh Stadium': 5, 'Rajiv Gandhi International Stadium, Uppal': 6,
-            'MA Chidambaram Stadium': 7, 'Dr DY Patil Sports Academy': 8, 'Newlands': 9, "St George's Park": 10, 'Kingsmead': 11, 'SuperSport Park': 12, 'Buffalo Park': 13, 'New Wanderers Stadium': 14, 'De Beers Diamond Oval': 15, 'OUTsurance Oval': 16,
-            'Brabourne Stadium': 17, 'Sardar Patel Stadium, Motera': 18, 'Barabati Stadium': 19, 'Vidarbha Cricket Association Stadium, Jamtha': 20, 'Himachal Pradesh Cricket Association Stadium': 21, 'Nehru Stadium': 22, 'Holkar Cricket Stadium': 23,
-            'Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium': 24, 'Subrata Roy Sahara Stadium': 25, 'Shaheed Veer Narayan Singh International Stadium': 26, 'JSCA International Stadium Complex': 27, 'Sheikh Zayed Stadium': 28, 'Sharjah Cricket Stadium': 29,
-            'Dubai International Cricket Stadium': 30, 'Maharashtra Cricket Association Stadium': 31, 'Saurashtra Cricket Association Stadium': 32, 'Green Park': 33, 'Arun Jaitley Stadium': 34}
+venue_id = {'M.Chinnaswamy Stadium': 0, 'Punjab Cricket Association Stadium': 1, 'Feroz Shah Kotla': 2, 'Wankhede Stadium': 3, 'Eden Gardens': 4, 'Sawai Mansingh Stadium': 5, 'Rajiv Gandhi International Stadium': 6,
+            'MA Chidambaram Stadium': 7, 'Dr DY Patil Sports Academy': 8, 'Newlands': 9, "St George's Park": 10, 'Kingsmead': 11, 'SuperSport Park': 12, 'Buffalo Park': 13, 'New Wanderers Stadium': 14,
+            'De Beers Diamond Oval': 15, 'OUTsurance Oval': 16, 'Brabourne Stadium': 17, 'Sardar Patel Stadium': 18, 'Barabati Stadium': 19, 'Vidarbha Cricket Association Stadium': 20,
+            'Himachal Pradesh Cricket Association Stadium': 21, 'Nehru Stadium': 22, 'Holkar Cricket Stadium': 23, 'Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium': 24, 'Subrata Roy Sahara Stadium': 25,
+            'Shaheed Veer Narayan Singh International Stadium': 26, 'JSCA International Stadium Complex': 27, 'Sheikh Zayed Stadium': 28, 'Sharjah Cricket Stadium': 29, 'Dubai International Cricket Stadium': 30,
+            'Maharashtra Cricket Association Stadium': 31, 'Saurashtra Cricket Association Stadium': 32, 'Green Park': 33, 'Arun Jaitley Stadium': 34}
 
 team_id = {'Royal Challengers Bangalore': 0, 'Kolkata Knight Riders': 1, 'Punjab Kings': 2, 'Chennai Super Kings': 3, 'Delhi Capitals': 4, 'Rajasthan Royals': 5, 'Mumbai Indians': 6, 'Deccan Chargers': 7, 'Kochi Tuskers Kerala': 8, 'Pune Warriors': 9,
-              'Sunrisers Hyderabad': 10, 'Rising Pune Supergiant': 11, 'Gujarat Lions': 12}
+           'Sunrisers Hyderabad': 10, 'Rising Pune Supergiant': 11, 'Gujarat Lions': 12}
 
 venue_na = {'avg_wicket_20': 5.840249560599999, 'max_wicket_6': 3.942857142857143, 'avg_wicket_6': 1.5042576654857143, 'overall_sr_6': 119.462, 'avg_runs_6': 89.833091148}
 
