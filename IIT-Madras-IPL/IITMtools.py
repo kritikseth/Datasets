@@ -100,9 +100,9 @@ def preprocess(DataFrame, data, colTransformer, drop_target=False):
 
     data = df.value
 
-    corr_cols = ['venue_oppteam_bowler_min_wickets_6', 'venue_oppteam_bowler_max_wickets_6', 'venue_oppteam_batsmen_min_runs_6', 'venue_oppteam_batsmen_max_runs_6', 'venue_overall_sr_6',
-             'venue_innings_battingteam_max_runs_6', 'venue_innings_battingteam_min_runs_6', 'venue_innings_battingteam_avg_runs_20', 'venue_innings_battingteam_strikerate_20', 'venue_oppteam_bowler_innings',
-             'venue_innings_bowlingteam_max_wickets_6', 'venue_innings_bowlingteam_avg_wickets_20', 'venue_avg_wicket_20', 'venue_max_wicket_6']
+    corr_cols = ['venue_oppteam_bowler.min_wickets_6', 'venue_oppteam_bowler.max_wickets_6', 'venue_oppteam_batsmen.min_runs_6', 'venue_oppteam_batsmen.max_runs_6', 'venue.overall_sr_6',
+             'venue_innings_battingteam.max_runs_6', 'venue_innings_battingteam.min_runs_6', 'venue_innings_battingteam.avg_runs_20', 'venue_innings_battingteam.strikerate_20', 'venue_oppteam_bowler.innings',
+             'venue_innings_bowlingteam.max_wickets_6', 'venue_innings_bowlingteam.avg_wickets_20', 'venue.avg_wicket_20', 'venue.max_wicket_6']
     data.drop(corr_cols, axis=1, inplace=True)
     
     if drop_target:
