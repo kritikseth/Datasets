@@ -75,18 +75,14 @@ venue_id = {'M.Chinnaswamy Stadium': 0, 'Punjab Cricket Association Stadium, Moh
 team_id = {'Royal Challengers Bangalore': 0, 'Kolkata Knight Riders': 1, 'Punjab Kings': 2, 'Chennai Super Kings': 3, 'Delhi Capitals': 4, 'Rajasthan Royals': 5, 'Mumbai Indians': 6, 'Deccan Chargers': 7, 'Kochi Tuskers Kerala': 8, 'Pune Warriors': 9,
               'Sunrisers Hyderabad': 10, 'Rising Pune Supergiant': 11, 'Gujarat Lions': 12}
 
+venue_na = {'avg_wicket_20': 5.840249560599999, 'max_wicket_6': 3.942857142857143, 'avg_wicket_6': 1.5042576654857143, 'overall_sr_6': 119.462, 'avg_runs_6': 89.833091148}
+
 def preprocess(DataFrame, data, colTransformer, drop_target=False):
     venue = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue.csv')
     venue_innings_battingteam = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_innings_battingteam.csv')
     venue_innings_bowlingteam = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_innings_bowlingteam.csv')
     venue_oppteam_batsmen = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_oppteam_batsmen.csv')
-    venue_oppteam_bowler = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_oppteam_bowler.csv')
-
-    venue.drop(['max_wicket_20', 'min_wicket_20', 'min_wicket_6', 'overall_sr_20', 'avg_runs_20', 'min_runs_20', 'max_runs_20', 'min_runs_6', 'max_runs_6'], axis=1, inplace=True)
-    venue_innings_battingteam.drop(['min_runs_20', 'max_runs_20', 'avg_wickets_20', 'min_wickets_20', 'max_wickets_20', 'avg_wickets_6', 'min_wickets_6', 'max_wickets_6'], axis=1, inplace=True)
-    venue_innings_bowlingteam.drop(['strikerate_20', 'avg_runs_20', 'min_runs_20', 'max_runs_20', 'min_wickets_20', 'max_wickets_20'], axis=1, inplace=True)
-    venue_oppteam_batsmen.drop(['min_runs_20', 'max_runs_20', 'avg_wickets_20', 'min_wickets_20', 'max_wickets_20', 'avg_wickets_6', 'min_wickets_6', 'max_wickets_6'], axis=1, inplace=True)
-    venue_oppteam_bowler.drop(['strikerate_20', 'avg_runs_20', 'min_runs_20', 'max_runs_20', 'min_wickets_20', 'max_wickets_20', 'min_runs_6', 'max_runs_6'], axis=1, inplace=True)
+    venue_oppteam_bowlers = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_oppteam_bowler.csv')
 
     df = DataFrame
     df.value = data
@@ -96,19 +92,50 @@ def preprocess(DataFrame, data, colTransformer, drop_target=False):
     df.add_cols(venue_innings_bowlingteam, prefix='venue_innings_bowlingteam.', on=['venue', 'innings', 'bowling_team'])
 
     df.split_add(venue_oppteam_batsmen, 'batsmen', 'venue_oppteam_batsmen.', on=['venue', 'bowling_team', 'batsmen'])
-    df.split_add(venue_oppteam_bowler, 'bowler', 'venue_oppteam_bowler.', on=['venue', 'batting_team', 'bowler'])
+    df.split_add(venue_oppteam_bowlers, 'bowlers', 'venue_oppteam_bowlers.', on=['venue', 'batting_team', 'bowlers'])
 
     data = df.value
 
-    # corr_cols = ['venue_oppteam_bowler.min_wickets_6', 'venue_oppteam_bowler.max_wickets_6', 'venue_oppteam_batsmen.min_runs_6', 'venue_oppteam_batsmen.max_runs_6', 'venue.overall_sr_6',
-    #          'venue_innings_battingteam.max_runs_6', 'venue_innings_battingteam.min_runs_6', 'venue_innings_battingteam.avg_runs_20', 'venue_innings_battingteam.strikerate_20', 'venue_oppteam_bowler.innings',
-    #          'venue_innings_bowlingteam.max_wickets_6', 'venue_innings_bowlingteam.avg_wickets_20', 'venue.avg_wicket_20', 'venue.max_wicket_6']
-    # data.drop(corr_cols, axis=1, inplace=True)
+    corr_cols = ['venue_oppteam_bowlers.min_wickets_6', 'venue_oppteam_bowlers.max_wickets_6', 'venue_oppteam_batsmen.min_runs_6', 'venue_oppteam_batsmen.max_runs_6', 'venue.overall_sr_6',
+                 'venue_innings_battingteam.max_runs_6', 'venue_innings_battingteam.min_runs_6', 'venue_innings_battingteam.avg_runs_20', 'venue_innings_battingteam.strikerate_20', 'venue_oppteam_bowlers.innings',
+                 'venue_innings_bowlingteam.max_wickets_6', 'venue_innings_bowlingteam.avg_wickets_20', 'venue.avg_wicket_20', 'venue.max_wicket_6']
+    data.drop(corr_cols, axis=1, inplace=True)
     
     if drop_target:
         X = data.drop(['total_runs'], axis=1)
     else:
         X = data
+
+    na_cols = X[X.columns[X.isna().any()]].columns.tolist()
+
+    for col in na_cols:
+
+        if col.split('.')[0] == 'venue':
+            X[col] = venue_na[col.split('.')[1]]
+        
+        elif col.split('.')[0] == 'venue_innings_battingteam':
+            vibatna = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/vibatna.csv')
+            vibatna = vibatna[vibatna['venue']==X['venue'][0]]
+            vibatna = vibatna[vibatna['innings']==X['innings'][0]]
+            X[col] = vibatna[col.split('.')[1]].tolist()[0]
+        
+        elif col.split('.')[0] == 'venue_innings_bowlingteam':
+            vibotna = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/vibotna.csv')
+            vibotna = vibotna[vibotna['venue']==X['venue'][0]]
+            vibotna = vibotna[vibotna['innings']==X['innings'][0]]
+            X[col] = vibotna[col.split('.')[1]].tolist()[0]
+        
+        elif col.split('.')[0] == 'venue_oppteam_batsmen':
+            votbana = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/votbana.csv')
+            votbana = votbana[votbana['venue']==X['venue'][0]]
+            votbana = votbana[votbana['bowling_team']==X['bowling_team'][0]]
+            X[col] = votbana[col.split('.')[1]].tolist()[0]
+        
+        elif col.split('.')[0] == 'venue_oppteam_bowlers':
+            votbona = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/votbona.csv')
+            votbona = votbona[votbona['venue']==X['venue'][0]]
+            votbona = votbona[votbona['batting_team']==X['batting_team'][0]]
+            X[col] = votbona[col.split('.')[1]].tolist()[0]
 
     X['venue'] = X['venue'].replace(venue_id)
     X['batting_team'] = X['batting_team'].replace(team_id)
