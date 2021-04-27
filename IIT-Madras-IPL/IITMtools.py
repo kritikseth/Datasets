@@ -76,7 +76,6 @@ team_id = {'Royal Challengers Bangalore': 0, 'Kolkata Knight Riders': 1, 'Punjab
               'Sunrisers Hyderabad': 10, 'Rising Pune Supergiant': 11, 'Gujarat Lions': 12}
 
 def preprocess(DataFrame, data, colTransformer, drop_target=False):
-    train = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/train.csv')
     venue = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue.csv')
     venue_innings_battingteam = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_innings_battingteam.csv')
     venue_innings_bowlingteam = pd.read_csv('https://raw.githubusercontent.com/kritikseth/Datasets/master/IIT-Madras-IPL/venue_innings_bowlingteam.csv')
