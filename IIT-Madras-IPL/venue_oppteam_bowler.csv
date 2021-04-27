@@ -1,4 +1,4 @@
-venue,batting_team,bowler,innings,strikerate_20,avg_runs_20,min_runs_20,max_runs_20,avg_wickets_20,min_wickets_20,max_wickets_20,avg_runs_6,min_runs_6,max_runs_6,avg_wickets_6,min_wickets_6,max_wickets_6
+venue,batting_team,bowlers,innings,strikerate_20,avg_runs_20,min_runs_20,max_runs_20,avg_wickets_20,min_wickets_20,max_wickets_20,avg_runs_6,min_runs_6,max_runs_6,avg_wickets_6,min_wickets_6,max_wickets_6
 Arun Jaitley Stadium,batting_team,A Mishra,98,114.24,28,20,36,2,2,2,,,,,,
 Arun Jaitley Stadium,Chennai Super Kings,AR Patel,48,66.69,16,16,16,0,0,0,9,9,9,0,0,0
 Arun Jaitley Stadium,Chennai Super Kings,Avesh Khan,24,233.32,28,28,28,0,0,0,28,28,28,0,0,0
